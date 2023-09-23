@@ -1,73 +1,9 @@
-stages = ['''
-      _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       |
-     |      / \
-     |
- jgs_|___
-           ''','''
- _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       |
-     |      / 
-     |
- jgs_|___
-''','''
- _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       |
-     |      
-     |
- jgs_|___''','''
-  _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       
-     |      
-     |
- jgs_|___''','''
-  _______
-     |/      |
-     |      (_)
-     |      \|
-     |       
-     |      
-     |
- jgs_|___''',''' _______
-     |/      |
-     |      (_)
-     |       |
-     |       
-     |      
-     |
- jgs_|___''','''
-  _______
-     |/      |
-     |      (_)
-     |      
-     |       
-     |      
-     |
- jgs_|___''',''' _______
-     |/      |
-     |      
-     |      
-     |       
-     |      
-     |
- jgs_|___''']
-
-
 import random
+from hangman_word import word_list
+from hangman_art import logo, stages
 
-word_list = ["ardvak", "baboon", "camel"]
+
+
 chosen_word = random.choice(word_list)
 word_lenght = len(chosen_word)
 
@@ -76,12 +12,12 @@ word_lenght = len(chosen_word)
 #Set 'lives' to equal 6.
 lives = 6
 
+print(logo)
 
 #Testing code
-print(f"Please, the solution is {chosen_word}")
+# print(f"Please, the solution is {chosen_word}")
 
-
-
+#create a blank list
 display = []
 
 for _ in range(word_lenght):
@@ -91,6 +27,11 @@ end_of_game = False
 
 while not end_of_game :
     guess = input("Guess a letter: ").lower()
+    
+    #If the user has entered a letter the've already guessed, print the letter and let them know.
+    if guess in display:
+        print(f"You've already guessed {guess}")
+    
 
     #check guesssed letter
     for position in range(word_lenght):
@@ -103,6 +44,8 @@ while not end_of_game :
     #then reduce 'lives' by 1.
     #If lives goes down to 0 then the game should stop and it should print "you win"
     if guess not in chosen_word:
+        #- If the letter is not in the chosen_word, print out the leter and let them know it's not in the word.
+        print(f"You guessed {guess}, that's not in the word. You lose a life.")
         lives -= 1
         if lives == 0:
             end_of_game = True
